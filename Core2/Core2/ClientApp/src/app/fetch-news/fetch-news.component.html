@@ -1,0 +1,62 @@
+<div *ngIf="!hackerNews; else contentBlock" class="card">
+  <div class="card-body">
+    <h5><em>Loading Latest 50 Hacker News Stories...</em></h5>
+  </div>
+</div>
+
+<ng-template #contentBlock>
+  <div class="card" style="padding-left: 20px;">
+    <div class="card-body">
+      <h5>
+        <em
+          >Latest 50 Hacker News Stories from
+          https://hacker-news.firebaseio.com/v0/ API</em
+        >
+      </h5>
+    </div>
+  </div>
+  <ol>
+    <div
+      *ngFor="let story of hackerNews"
+      class="card"
+      style="padding-left: 20px; margin-top: 10px;"
+    >
+      <div *ngIf="story.url; else elseBlock" class="card-body">
+        <div class="card-title">
+          <h5>
+            <li>
+              <a href="{{ story.url }}">{{ story.title }}</a>
+            </li>
+          </h5>
+        </div>
+        <div *ngIf="story.by">
+          <em>by: {{ story.by }}</em>
+        </div>
+      </div>
+      <ng-template #elseBlock>
+        <div class="card-body">
+          <h5>
+            <li>{{ story.title }}</li>
+          </h5>
+          <div *ngIf="story.by">
+            <em>by: {{ story.by }}</em>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </ol>
+</ng-template>
+
+<!--<ol>
+  <li *ngFor="let story of hackerNews">
+    <div *ngIf="story.url != null; else elseBlock">
+      <a href="{{ story.url }}">{{ story.title }}</a>
+    </div>
+    <ng-template #elseBlock>
+      <div>{{ story.title }}</div>
+    </ng-template>
+    <div *ngIf="story.by !== null">
+      <em>by: {{ story.by }}</em>
+    </div>
+  </li>
+</ol> -->
